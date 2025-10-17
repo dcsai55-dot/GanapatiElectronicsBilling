@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ganapati Electronics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+    <div class="login-card">
+        <div class="login-header">
+            <img src="assets/logo.png" alt="Logo" class="login-logo">
+            <h2>Ganapati Electronics</h2>
+            <p>Welcome! Please login to your account.</p>
+        </div>
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-primary">Sign In</button>
+            <p id="auth-error" class="error-message"></p>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
