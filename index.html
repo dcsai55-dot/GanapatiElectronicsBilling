@@ -5,27 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Ganapati Electronics</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <aside class="sidebar" id="sidebar-container">
-        </aside>
-
+    <aside class="sidebar" id="sidebar-container"></aside>
     <main class="main-content">
         <header class="page-header">
-            <h2>Dashboard</h2>
-            <p>Welcome back! Here's a summary of your business.</p>
+            <h1>Dashboard</h1>
+            <p>A quick overview of your business performance.</p>
         </header>
-        
-        <div class="card">
-            <h3>Coming Soon</h3>
-            <p>Your sales summary and low-stock alerts will appear here.</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Total Sales</h4>
+                <p>₹0</p>
+                <span class="stat-icon">💰</span>
+            </div>
+            <div class="stat-card">
+                <h4>Total Bills</h4>
+                <p>0</p>
+                <span class="stat-icon">📄</span>
+            </div>
+            <div class="stat-card">
+                <h4>Low Stock Items</h4>
+                <p>0</p>
+                <span class="stat-icon">📦</span>
+            </div>
+            <div class="stat-card">
+                <h4>Total Customers</h4>
+                <p>0</p>
+                <span class="stat-icon">👥</span>
+            </div>
         </div>
     </main>
-
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
