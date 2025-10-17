@@ -7,37 +7,45 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <aside class="sidebar" id="sidebar-container"></aside>
+
     <main class="main-content">
         <header class="page-header">
             <h1>Dashboard</h1>
-            <p>A quick overview of your business performance.</p>
+            <p>A real-time overview of your business performance.</p>
         </header>
+
         <div class="stats-grid">
             <div class="stat-card">
-                <h4>Total Sales</h4>
-                <p>₹0</p>
                 <span class="stat-icon">💰</span>
+                <h4>Total Sales</h4>
+                <p id="total-sales">₹0.00</p>
             </div>
             <div class="stat-card">
-                <h4>Total Bills</h4>
-                <p>0</p>
                 <span class="stat-icon">📄</span>
+                <h4>Total Bills</h4>
+                <p id="total-bills">0</p>
             </div>
             <div class="stat-card">
-                <h4>Low Stock Items</h4>
-                <p>0</p>
                 <span class="stat-icon">📦</span>
+                <h4>Products in Stock</h4>
+                <p id="total-products">0</p>
             </div>
             <div class="stat-card">
-                <h4>Total Customers</h4>
-                <p>0</p>
                 <span class="stat-icon">👥</span>
+                <h4>Total Customers</h4>
+                <p id="total-customers">0</p>
             </div>
         </div>
     </main>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
     <script src="js/main.js"></script>
+    
+    <script src="js/dashboard.js"></script>
 </body>
 </html>
