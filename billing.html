@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New Bill - Ganapati Electronics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar-container"></aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h2>Point of Sale (POS)</h2>
+            <p>Create a new bill for a customer.</p>
+        </header>
+        
+        <div class="card">
+            <h3>Customer & Product Search</h3>
+            </div>
+
+        <div class="card">
+            <h3>Current Bill</h3>
+            <table id="billItemsTable">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+            <hr>
+            <h3>Total Amount: ₹<span id="billTotal">0.00</span></h3>
+            <button class="btn" id="generateBillBtn">Generate & Save Bill</button>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/billing.js"></script>
+</body>
+</html>
