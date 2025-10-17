@@ -14,7 +14,44 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const productsCollection = db.collection("products");
+// --- Sidebar Navigation HTML ---
+const sidebarHTML = `
+    <h1>Ganapati<br>Electronics</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html" id="nav-dashboard">Dashboard</a></li>
+            <li><a href="inventory.html" id="nav-inventory">Inventory</a></li>
+            <li><a href="billing.html" id="nav-billing">New Bill</a></li>
+            <li><a href="reports.html" id="nav-reports">Sales Reports</a></li>
+        </ul>
+    </nav>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+`;
 
+// --- Core Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if user is logged in
+    auth.onAuthStateChanged(user => {
+        if (!user && window.location.pathname !== '/login.html') {
+            window.location.replace('login.html');
+        } else {
+            // Load sidebar if the container exists
+            const sidebarContainer = document.getElementById('sidebar-container');
+            if (sidebarContainer) {
+                sidebarContainer.innerHTML = sidebarHTML;
+                
+                // Set active link
+                const currentPage = window.location.pathname.split('/').pop();
+                if (currentPage.startsWith('index')) document.getElementById('nav-dashboard').classList.add('active');
+                if (currentPage.startsWith('inventory')) document.getElementById('nav-inventory').classList.add('active');
+                // ... add for other pages
+
+                // Add logout functionality
+                document.getElementById('logoutBtn').addEventListener('click', () => auth.signOut());
+            }
+        }
+    });
+});
 // --- DOM Elements ---
 const loginView = document.getElementById('login-view');
 const appView = document.getElementById('app-view');
