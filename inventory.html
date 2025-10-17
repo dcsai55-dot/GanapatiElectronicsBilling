@@ -1,90 +1,70 @@
-let currentUser;
-let unsubscribeInventory;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Ganapati Electronics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-// DOM Elements
-const addProductForm = document.getElementById('addProductForm');
-const inventoryList = document.getElementById('inventoryList');
+    <aside class="sidebar" id="sidebar-container"></aside>
 
-// Listen for auth changes to get the current user
-auth.onAuthStateChanged(user => {
-    if (user) {
-        currentUser = user;
-        getProducts(user.uid);
-    } else {
-        // Stop listening to database changes if user logs out
-        if (unsubscribeInventory) unsubscribeInventory();
-    }
-});
+    <main class="main-content">
+        <header class="page-header">
+            <h1>Inventory</h1>
+            <p>Add, view, and manage your product stock.</p>
+        </header>
 
-// Add a new product to Firestore
-addProductForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!currentUser) {
-        alert("You must be logged in to add products.");
-        return;
-    }
+        <div class="content-grid">
+            <div class="card form-card">
+                <h3>Add New Product</h3>
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <input type="text" id="productName" placeholder="Product Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="productSKU" placeholder="SKU / Barcode" required>
+                    </div>
+                    <div class="form-group-inline">
+                        <div class="form-group">
+                            <input type="number" id="productQuantity" placeholder="Quantity" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="productPrice" placeholder="Price (₹)" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Add to Stock</button>
+                </form>
+            </div>
 
-    const productName = addProductForm.productName.value;
-    const productSKU = addProductForm.productSKU.value;
-    const productQuantity = parseInt(addProductForm.productQuantity.value);
-    const productPrice = parseFloat(addProductForm.productPrice.value);
+            <div class="card list-card">
+                <h3>Current Stock</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>SKU</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryList">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    try {
-        await db.collection('products').add({
-            name: productName,
-            sku: productSKU,
-            quantity: productQuantity,
-            price: productPrice,
-            // --- THIS IS THE CRITICAL LINE THAT MUST BE INCLUDED ---
-            ownerId: currentUser.uid,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        addProductForm.reset();
-    } catch (error) {
-        console.error("Error adding product: ", error);
-        alert("Failed to add product.");
-    }
-});
-
-// Get all products from Firestore and display them
-const getProducts = (userId) => {
-    unsubscribeInventory = db.collection('products')
-        .where("ownerId", "==", userId)
-        .orderBy("createdAt", "desc")
-        .onSnapshot(snapshot => {
-            inventoryList.innerHTML = ''; // Clear the list
-            if (snapshot.empty) {
-                inventoryList.innerHTML = '<tr><td colspan="5">No products found. Add one above!</td></tr>';
-                return;
-            }
-            snapshot.docs.forEach(doc => renderProduct(doc));
-        }, (error) => {
-            console.error("Error getting products: ", error);
-            // This error can happen if the required index is not created
-            if (error.code === 'failed-precondition') {
-                alert("Database query failed. The required index is missing. Please check the browser console for a link to create it automatically.");
-            }
-        });
-};
-
-// Render a single product row in the table
-const renderProduct = (doc) => {
-    const product = doc.data();
-    const tr = document.createElement('tr');
-    tr.setAttribute('data-id', doc.id);
-    tr.innerHTML = `
-        <td>${product.name}</td>
-        <td>${product.sku}</td>
-        <td>${product.quantity}</td>
-        <td>₹${product.price.toFixed(2)}</td>
-        <td><button class="delete-btn">Delete</button></td>
-    `;
-    inventoryList.appendChild(tr);
-
-    // Add delete functionality
-    tr.querySelector('.delete-btn').addEventListener('click', async () => {
-        if (confirm(`Are you sure you want to delete ${product.name}?`)) {
-            await db.collection('products').doc(doc.id).delete();
-        }
-    });
-};
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <script src="js/main.js"></script>
+    
+    <script src="js/inventory.js"></script>
+</body>
+</html>
