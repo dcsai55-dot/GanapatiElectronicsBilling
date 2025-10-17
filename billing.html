@@ -7,44 +7,74 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <aside class="sidebar" id="sidebar-container"></aside>
+
     <main class="main-content">
-        <header class="page-header"><h1>Point of Sale</h1><p>Create a new bill for a customer.</p></header>
+        <header class="page-header">
+            <h1>Point of Sale</h1>
+            <p>Create a new bill for a customer.</p>
+        </header>
+
         <div class="pos-grid">
+            
             <div class="card pos-main">
-                <div class="form-group">
+                <div class="form-group" style="position: relative;">
                     <input type="text" id="productSearch" placeholder="🔍 Search for products by name or SKU...">
                     <div id="searchResults" class="search-results"></div>
                 </div>
                 <div class="table-container bill-table">
                     <table>
-                        <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th><th></th></tr></thead>
-                        <tbody id="billItemsTable"></tbody>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th></th> </tr>
+                        </thead>
+                        <tbody id="billItemsTable">
+                            </tbody>
                     </table>
                 </div>
             </div>
+
             <div class="card pos-sidebar">
                 <h3>Customer Details</h3>
-                <div class="form-group"><input type="text" id="customerName" placeholder="Customer Name"></div>
-                <div class="form-group"><input type="text" id="customerPhone" placeholder="Customer Phone (for SMS)"></div>
-                <hr>
+                <div class="form-group">
+                    <input type="text" id="customerName" placeholder="Customer Name (Required)" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="customerPhone" placeholder="Customer Phone (for SMS)">
+                </div>
+                <hr style="border-color: var(--border-color); margin: 20px 0;">
                 <h3>Bill Summary</h3>
                 <div class="bill-summary">
-                    <span>Subtotal</span><span id="billSubtotal">₹0.00</span>
-                    <span>Discount (%)</span><input type="number" id="billDiscount" value="0" min="0">
-                    <span class="total">Grand Total</span><span class="total" id="billTotal">₹0.00</span>
+                    <span>Subtotal</span>
+                    <span id="billSubtotal">₹0.00</span>
+                    <span>Discount (%)</span>
+                    <input type="number" id="billDiscount" value="0" min="0">
+                    <span class="total">Grand Total</span>
+                    <span class="total" id="billTotal">₹0.00</span>
                 </div>
-                <button id="generateBillBtn" class="btn-primary btn-large">Generate Bill & Print PDF</button>
+                <button id="generateBillBtn" class="btn-primary btn-large">Generate Bill & Save</button>
             </div>
         </div>
     </main>
-    <div id="animationModal" class="modal"><div class="modal-content"><img id="modal-img" src="" alt="Status"><p id="modal-text"></p></div></div>
+
+    <div id="animationModal" class="modal">
+        <div class="modal-content">
+            <div id="lottie-container"></div>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="js/main.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> <script src="js/main.js"></script>
     <script src="js/billing.js"></script>
+
 </body>
 </html>
